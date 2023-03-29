@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">	
+    <title>REST Service</title>
+  </head>
+  <body>
+    <h1>REST Service </h1>
+    <form>
+      <label for="input-url">Service URL:</label>
+      <input type="text" id="input-url" name="url" placeholder="Enter service URL">
+      <br>
+      <label for="input-params">Service Parameters:</label>
+      <input type="text" id="input-params" name="params" placeholder="Enter service parameters">
+      <br>
+      <button type="button" onclick="callService()">Call Service</button>
+    </form>
+   
+   
+	<pre style="background-color: #FFEB3B;"><code id="json-container"></code></pre>
+
+    <script>
+	const data = {
+      color: 'red',
+      wheels: 4,
+      engine: {
+        cylinders: 4,
+        size: 2.2
+      }
+    }
+      function callService() {
+        const url = document.getElementById("input-url").value;
+        const params = document.getElementById("input-params").value;
+			
+        fetch(`${url}/${params}`)
+          .then(response => response.json())
+          .then(data => {
+                document.getElementById('json-container').innerHTML = JSON.stringify(data, null, 2);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    </script>
+  </body>
+</html>
